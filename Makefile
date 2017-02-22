@@ -5,7 +5,7 @@ WARNINGS += -Wno-vla
 WARNINGS += -Weffc++
 WARNINGS += -std=c++11
 
-OBJDIR = obj
+OBJDIR = .
 
 all: clflush_func
 	g++ -c main.cpp -o ${OBJDIR}/main.o -O3 -m64 ${WARNINGS}
