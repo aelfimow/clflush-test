@@ -3,6 +3,8 @@
 #include <vector>
 #include <chrono>
 
+static_assert(sizeof(size_t) == 8, "size_t expected to be 64 bit");
+
 extern "C" void clflush_func(void *p1, void *p2);
 
 using namespace std::chrono;
