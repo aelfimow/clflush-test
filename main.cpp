@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cstdint>
 #include <stdexcept>
+#include <vector>
 
 extern "C" void clflush_func(void *p1, void *p2);
 
@@ -22,16 +23,16 @@ try
 
     std::cout << "Max. count: " << maxCount << std::endl;
 
-    size_t *data1 = new size_t[maxCount];
-    size_t *data2 = new size_t[maxCount];
+    std::vector<size_t> data1(maxCount);
+    std::vector<size_t> data2(maxCount);
 
-    for (size_t count = 0; count < maxCount; ++count)
+    for (auto &d1: data1)
     {
-        clflush_func(&data1[count], &data2[count]);
+        for (auto &d2: data2)
+        {
+            clflush_func(&d1, &d2);
+        }
     }
-
-    delete [] data1;
-    delete [] data2;
 
     return EXIT_SUCCESS;
 }
