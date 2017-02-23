@@ -1,8 +1,11 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <chrono>
 
 extern "C" void clflush_func(void *p1, void *p2);
+
+using namespace std::chrono;
 
 int main(int argc, char *argv[])
 try
@@ -23,13 +26,21 @@ try
     std::vector<size_t> data1(maxCount);
     std::vector<size_t> data2(maxCount);
 
-    for (auto &d1: data1)
+    const auto t1 = high_resolution_clock::now();
     {
-        for (auto &d2: data2)
+        for (auto &d1: data1)
         {
-            clflush_func(&d1, &d2);
+            for (auto &d2: data2)
+            {
+                clflush_func(&d1, &d2);
+            }
         }
     }
+    const auto t2 = high_resolution_clock::now();
+
+    const auto t_diff = duration_cast<milliseconds>(t2 - t1).count();
+
+    std::cout << "Duration: " << t_diff << " milliseconds" << std::endl;
 
     return EXIT_SUCCESS;
 }
