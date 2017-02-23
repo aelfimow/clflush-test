@@ -1,8 +1,5 @@
 #include <iostream>
 #include <sstream>
-#include <cstdlib>
-#include <cstdint>
-#include <stdexcept>
 #include <vector>
 
 extern "C" void clflush_func(void *p1, void *p2);
