@@ -1,13 +1,11 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include <chrono>
+#include "scoped_chrono.h"
 
 static_assert(sizeof(size_t) == 8, "size_t expected to be 64 bit");
 
 extern "C" void clflush_func(void *p1, void *p2);
-
-using namespace std::chrono;
 
 int main(int argc, char *argv[])
 try
@@ -28,8 +26,9 @@ try
     std::vector<size_t> data1(maxCount);
     std::vector<size_t> data2(maxCount);
 
-    const auto t1 = high_resolution_clock::now();
     {
+        scoped_chrono sc { "Duration (d1, d2): " };
+
         for (auto &d1: data1)
         {
             for (auto &d2: data2)
@@ -38,11 +37,18 @@ try
             }
         }
     }
-    const auto t2 = high_resolution_clock::now();
 
-    const auto t_diff = duration_cast<milliseconds>(t2 - t1).count();
+    {
+        scoped_chrono sc { "Duration (d2, d1): " };
 
-    std::cout << "Duration: " << t_diff << " milliseconds" << std::endl;
+        for (auto &d2: data2)
+        {
+            for (auto &d1: data1)
+            {
+                clflush_func(&d1, &d2);
+            }
+        }
+    }
 
     return EXIT_SUCCESS;
 }
