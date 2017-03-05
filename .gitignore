@@ -1,3 +1,5 @@
 clflush.exe
 clflush_func.o
+scoped_chrono.o
+scoped_chrono_priv.o
 main.o
