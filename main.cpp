@@ -26,26 +26,30 @@ try
     std::vector<size_t> data1(maxCount);
     std::vector<size_t> data2(maxCount);
 
+    for (auto step = 0; step < 2; ++step)
     {
-        scoped_chrono sc { "Duration (d1, d2): " };
-
-        for (auto &d1: data1)
+        std::cout << "Step: " << step << std::endl;
         {
-            for (auto &d2: data2)
-            {
-                clflush_func(&d1, &d2);
-            }
-        }
-    }
+            scoped_chrono sc { "Duration (d1, d2): " };
 
-    {
-        scoped_chrono sc { "Duration (d2, d1): " };
-
-        for (auto &d2: data2)
-        {
             for (auto &d1: data1)
             {
-                clflush_func(&d1, &d2);
+                for (auto &d2: data2)
+                {
+                    clflush_func(&d1, &d2);
+                }
+            }
+        }
+
+        {
+            scoped_chrono sc { "Duration (d2, d1): " };
+
+            for (auto &d2: data2)
+            {
+                for (auto &d1: data1)
+                {
+                    clflush_func(&d1, &d2);
+                }
             }
         }
     }
