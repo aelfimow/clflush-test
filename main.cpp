@@ -10,23 +10,30 @@ extern "C" void clflush_func(void *p1, void *p2);
 int main(int argc, char *argv[])
 try
 {
-    if (argc != 2)
+    if (argc != 3)
     {
-        throw std::invalid_argument("Usage: maxCount");
+        throw std::invalid_argument("Usage: maxSteps maxWords");
     }
 
-    size_t maxCount = 0;
+    size_t maxSteps = 0;
     {
-        std::stringstream ss1 { argv[1] };
-        ss1 >> maxCount;
+        std::stringstream ss { argv[1] };
+        ss >> maxSteps;
     }
 
-    std::cout << "Max. count: " << maxCount << std::endl;
+    size_t maxWords = 0;
+    {
+        std::stringstream ss { argv[2] };
+        ss >> maxWords;
+    }
 
-    std::vector<size_t> data1(maxCount);
-    std::vector<size_t> data2(maxCount);
+    std::cout << "Max. steps: " << maxSteps << std::endl;
+    std::cout << "Max. words: " << maxWords << std::endl;
 
-    for (auto step = 0; step < 2; ++step)
+    std::vector<size_t> data1(maxWords);
+    std::vector<size_t> data2(maxWords);
+
+    for (size_t step = 0; step < maxSteps; ++step)
     {
         std::cout << "Step: " << step << std::endl;
         {
