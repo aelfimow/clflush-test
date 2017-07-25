@@ -3,7 +3,7 @@ WARNINGS += -Wextra
 WARNINGS += -pedantic
 WARNINGS += -Wno-vla
 WARNINGS += -Weffc++
-WARNINGS += -std=c++11
+WARNINGS += -std=c++17
 
 OBJDIR = .
 
