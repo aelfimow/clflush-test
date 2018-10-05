@@ -3,7 +3,7 @@
 #include <vector>
 #include "scoped_chrono.h"
 
-static_assert(sizeof(size_t) == 8, "size_t expected to be 64 bit");
+static_assert(sizeof(size_t) == 8);
 
 extern "C" void clflush_func(void *p1, void *p2);
 
