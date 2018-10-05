@@ -1,21 +1,15 @@
-WARNINGS += -Wall
-WARNINGS += -Wextra
-WARNINGS += -pedantic
-WARNINGS += -Wno-vla
-WARNINGS += -Weffc++
-WARNINGS += -std=c++17
-
-OBJDIR = .
+CXXFLAGS += -Wall
+CXXFLAGS += -Wextra
+CXXFLAGS += -pedantic
+CXXFLAGS += -Wno-vla
+CXXFLAGS += -Weffc++
+CXXFLAGS += -std=c++17
 
 all: clflush_func
-	g++ -c scoped_chrono_priv.cpp -o ${OBJDIR}/scoped_chrono_priv.o -O3 -m64 ${WARNINGS}
-	g++ -c scoped_chrono.cpp -o ${OBJDIR}/scoped_chrono.o -O3 -m64 ${WARNINGS}
-	g++ -c main.cpp -o ${OBJDIR}/main.o -O3 -m64 ${WARNINGS}
-	g++ ${OBJDIR}/main.o ${OBJDIR}/clflush_func.o ${OBJDIR}/scoped_chrono_priv.o ${OBJDIR}/scoped_chrono.o -o clflush.exe -O3 -m64 ${WARNINGS}
+	g++ -c scoped_chrono_priv.cpp -o scoped_chrono_priv.o -O3 -m64 ${CXXFLAGS}
+	g++ -c scoped_chrono.cpp -o scoped_chrono.o -O3 -m64 ${CXXFLAGS}
+	g++ -c main.cpp -o main.o -O3 -m64 ${CXXFLAGS}
+	g++ main.o clflush_func.o scoped_chrono_priv.o scoped_chrono.o -o clflush.exe -O3 -m64 ${CXXFLAGS}
 
 clflush_func:
 	as clflush_func.s -o ${OBJDIR}/clflush_func.o --64
-
-clean:
-	rm -f ${OBJDIR}/*.o *.exe
-
