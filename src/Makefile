@@ -7,7 +7,7 @@ CXXFLAGS += -Weffc++
 CXXFLAGS += -std=c++17
 
 all: clflush_func
-	g++ -c *.cpp -O3 -m64 ${CXXFLAGS}
+	g++ -c *.cpp ${CXXFLAGS}
 	g++ *.o -o clflush.exe ${CXXFLAGS}
 
 clflush_func:
